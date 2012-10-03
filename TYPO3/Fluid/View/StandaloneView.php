@@ -72,22 +72,8 @@ class StandaloneView extends \TYPO3\Fluid\View\AbstractTemplateView {
 	 */
 	public function __construct() {
 		$this->objectManager = new \TYPO3\Fluid\Object\ObjectManager();
-		#$configurationManager = $this->objectManager->create('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
-		#$configurationManager->setContentObject($contentObject);
 		$this->templateParser = $this->objectManager->get('TYPO3\\Fluid\\Core\\Parser\\TemplateParser');
 		$this->setRenderingContext($this->objectManager->create('TYPO3\\Fluid\\Core\\Rendering\\RenderingContext'));
-		#$request = $this->objectManager->create('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Request');
-		#$request->setRequestURI(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
-		#$request->setBaseURI(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL'));
-		#$uriBuilder = $this->objectManager->create('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
-		#$uriBuilder->setRequest($request);
-		#$controllerContext = $this->objectManager->create('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ControllerContext');
-		#$controllerContext->setRequest($request);
-		#$controllerContext->setUriBuilder($uriBuilder);
-		#$flashMessageContainer = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\FlashMessages');
-		// singleton
-		#$controllerContext->setFlashMessageContainer($flashMessageContainer);
-		#$this->setControllerContext($controllerContext);
 		$this->templateCompiler = $this->objectManager->get('TYPO3\\Fluid\\Core\\Compiler\\TemplateCompiler');
 		// singleton
 		#$this->templateCompiler->setTemplateCache($GLOBALS['typo3CacheManager']->getCache('fluid_template'));
