@@ -22,6 +22,7 @@ Working:
 - Layout and partial usage
 - Basic variable usage
 - Fluid Template Caching as PHP
+- Custom ViewHelpers and namespace mapping
 
 Not working:
 
