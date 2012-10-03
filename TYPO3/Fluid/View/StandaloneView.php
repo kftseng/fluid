@@ -360,7 +360,7 @@ class StandaloneView extends \TYPO3\Fluid\View\AbstractTemplateView {
 			throw new \TYPO3\Fluid\View\Exception\InvalidTemplateResourceException('Partial root path "' . $partialRootPath . '" does not exist.', 1288094648);
 		}
 		$possiblePartialPaths = array();
-		$possiblePartialPaths[] = $partialRootPath . '/' . $partialName . '.' . $this->getRequest()->getFormat();
+		$possiblePartialPaths[] = $partialRootPath . '/' . $partialName . '.' . $this->getFormat();
 		$possiblePartialPaths[] = $partialRootPath . '/' . $partialName;
 		foreach ($possiblePartialPaths as $partialPathAndFilename) {
 			if (file_exists($partialPathAndFilename)) {

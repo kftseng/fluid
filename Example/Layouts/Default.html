@@ -1,3 +1,27 @@
 <f:layout name="Default" />
+<html>
+    <head>
+        <title>Example Fluid Template</title>
+    </head>
+    <body>
+        <!-- This is an example template. It demonstrates how to use Layouts, Partials, Sections
+            and a few of the built-in ViewHelpers (small objects, which can be rendered using
+            an XML syntax as you see just below this line, which renders the Main body Section).
+        -->
+        <f:render section="Main" />
 
-<f:render section="Main" />
+        <!-- This is an example of how to render a Partial template with variables which were
+            assigned to the StandaloneView that renders this template. Note the curly braces; this
+            means a variable is requested. -->
+        <f:render partial="Default" section="Main" arguments="{assignedVariables}" />
+
+        <!-- This demonstrates how to specify an array of variables (here called arguments) that
+            will be available while rendering the Partial template -->
+        <f:render partial="Default" section="Other" arguments="{foo: 'foobetidoo'}" />
+
+        <!-- And finally, this renders the same Section as before - but this time with all variables
+            passed using the special keyword variable "_all" -->
+        <f:render partial="Default" section="Other" arguments="{_all}" />
+    </body>
+
+</html>

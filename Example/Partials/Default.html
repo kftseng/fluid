@@ -1,0 +1,31 @@
+Explanation
+====
+
+This is a so-called "Partial" template. It is what the name says, a partial
+template which means it is is either:
+
+- a very simple template which can be rendered using <f:render partial="NameOfPartial" /> (not illustrated here)
+- a template divided into sections (illustrated here)
+
+Any content not placed inside f:section tags will not be rendered if you render the Partial using
+<f:render partial="NameOfPartial" section="NameOfSection" /> - only the selected section is rendered.
+
+Any content placed inside f:section tags is not rendered unless rendering a specific section.
+
+You can even render one section from within another.
+
+<f:section name="Main">
+    <pre>
+        Passed variables:
+        foo = {foo}
+        bar = {bar}
+    </pre>
+</f:section>
+
+<f:section name="Other">
+    <pre>
+        Passed variables:
+        foo = {foo}
+        bar = {bar}
+    </pre>
+</f:section>
