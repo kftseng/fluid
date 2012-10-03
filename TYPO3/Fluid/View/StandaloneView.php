@@ -73,11 +73,22 @@ class StandaloneView extends \TYPO3\Fluid\View\AbstractTemplateView {
 	public function __construct() {
 		$this->objectManager = new \TYPO3\Fluid\Object\ObjectManager();
 		$this->templateParser = $this->objectManager->get('TYPO3\\Fluid\\Core\\Parser\\TemplateParser');
-		$this->setRenderingContext($this->objectManager->create('TYPO3\\Fluid\\Core\\Rendering\\RenderingContext'));
 		$this->templateCompiler = $this->objectManager->get('TYPO3\\Fluid\\Core\\Compiler\\TemplateCompiler');
-		// singleton
-		#$this->templateCompiler->setTemplateCache($GLOBALS['typo3CacheManager']->getCache('fluid_template'));
-		#$this->templateCompiler->setTemplateCache(NULL);
+		$this->setRenderingContext($this->objectManager->create('TYPO3\\Fluid\\Core\\Rendering\\RenderingContext'));
+	}
+
+	/**
+	 * @param string $templateCacheDir
+	 */
+	public function setTemplateCacheDir($templateCacheDir) {
+		$this->templateCompiler->setTemplateCacheDir($templateCacheDir);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTemplateCacheDir() {
+		return $this->templateCompiler->getTemplateCacheDir();
 	}
 
 	/**

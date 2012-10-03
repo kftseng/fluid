@@ -99,6 +99,3 @@ abstract class AbstractCompiledTemplate implements \TYPO3\Fluid\Core\Parser\Pars
 	}
 
 }
-
-
-?>

@@ -16,10 +16,16 @@ namespace TYPO3\Fluid\Core\Compiler;
 class TemplateCompiler implements \TYPO3\Fluid\Object\SingletonInterface {
 
 	const SHOULD_GENERATE_VIEWHELPER_INVOCATION = '##should_gen_viewhelper##';
+
 	/**
-	 * @var array
+	 * @var \TYPO3\Fluid\Object\ObjectManagerInterface
 	 */
-	protected $templateCache = array(); // TODO: replace with php file cache capable mechanism
+	protected $objectManager;
+
+	/**
+	 * @var string
+	 */
+	protected $templateCacheDir = CLASS_CACHE_DIR;
 
 	/**
 	 * @var integer
@@ -32,12 +38,19 @@ class TemplateCompiler implements \TYPO3\Fluid\Object\SingletonInterface {
 	protected $syntaxTreeInstanceCache = array();
 
 	/**
+	 * @param \TYPO3\Fluid\Object\ObjectManagerInterface $objectManager
+	 */
+	public function injectObjectManager(\TYPO3\Fluid\Object\ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+	/**
 	 * @param string $identifier
 	 * @return boolean
 	 */
 	public function has($identifier) {
 		$identifier = $this->sanitizeIdentifier($identifier);
-		return isset($this->templateCache[$identifier]);
+		return ($this->templateCacheDir === NULL || file_exists($this->templateCacheDir . $identifier . '.php'));
 	}
 
 	/**
@@ -47,9 +60,9 @@ class TemplateCompiler implements \TYPO3\Fluid\Object\SingletonInterface {
 	public function get($identifier) {
 		$identifier = $this->sanitizeIdentifier($identifier);
 		if (!isset($this->syntaxTreeInstanceCache[$identifier])) {
-			$this->templateCache->requireOnce($identifier);
+			require_once $this->templateCacheDir . $identifier . '.php';
 			$templateClassName = 'FluidCache_' . $identifier;
-			$this->syntaxTreeInstanceCache[$identifier] = new $templateClassName();
+			$this->syntaxTreeInstanceCache[$identifier] = $this->objectManager->create($templateClassName);
 		}
 		return $this->syntaxTreeInstanceCache[$identifier];
 	}
@@ -91,8 +104,10 @@ return %s;
 
 }';
 		$templateCode = sprintf($templateCode, $classDefinition, $convertedLayoutNameNode['initialization'], $convertedLayoutNameNode['execution'], $parsingState->hasLayout() ? 'TRUE' : 'FALSE', $generatedRenderFunctions);
-		#$this->templateCache->set($identifier, $templateCode);
-		$this->templateCache[$identifier] = $templateCode;
+		$templateCode = '<?php ' . $templateCode;
+		if ($this->templateCacheDir !== NULL) {
+			file_put_contents($this->templateCacheDir . $identifier . '.php', $templateCode);
+		}
 	}
 
 	/**
@@ -335,7 +350,23 @@ return %s;
 		return '$' . $prefix . $this->variableCounter++;
 	}
 
+	/**
+	 * @param string $templateCacheDir
+	 */
+	public function setTemplateCacheDir($templateCacheDir) {
+		if (!is_dir($templateCacheDir)) {
+			if (!mkdir($templateCacheDir)) {
+				throw new Exception('Template cache directory (' . $templateCacheDir . ') does not appear to exist and could not be created');
+			}
+		}
+		$this->templateCacheDir = $templateCacheDir;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTemplateCacheDir() {
+		return $this->templateCacheDir;
+	}
+
 }
-
-
-?>

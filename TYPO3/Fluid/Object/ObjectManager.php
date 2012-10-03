@@ -29,6 +29,7 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 		'TYPO3\\Fluid\\Object\\ObjectManagerInterface' => 'TYPO3\\Fluid\\Object\\ObjectManager',
 		'TYPO3\\Fluid\\Object\\ObjectManagerInterface' => 'TYPO3\\Fluid\\Object\\ObjectManager'
 	);
+	private $_singletons = array();
 
 	/**
 	 * Creates a new <tt>SplClassLoader</tt> that loads classes of the
@@ -36,8 +37,7 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 *
 	 * @param string $ns The namespace to use.
 	 */
-	public function __construct($ns = null, $includePath = null)
-	{
+	public function __construct($ns = null, $includePath = null) {
 		$this->_namespace = $ns !== NULL ? $ns : 'TYPO3';
 		$this->_includePath = $includePath !== NULL ? $includePath : CLASS_BASE_DIR;
 	}
@@ -47,8 +47,7 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 *
 	 * @param string $sep The separator to use.
 	 */
-	public function setNamespaceSeparator($sep)
-	{
+	public function setNamespaceSeparator($sep) {
 		$this->_namespaceSeparator = $sep;
 	}
 
@@ -57,8 +56,7 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 *
 	 * @return void
 	 */
-	public function getNamespaceSeparator()
-	{
+	public function getNamespaceSeparator() {
 		return $this->_namespaceSeparator;
 	}
 
@@ -67,8 +65,7 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 *
 	 * @param string $includePath
 	 */
-	public function setIncludePath($includePath)
-	{
+	public function setIncludePath($includePath) {
 		$this->_includePath = $includePath;
 	}
 
@@ -77,8 +74,7 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 *
 	 * @return string $includePath
 	 */
-	public function getIncludePath()
-	{
+	public function getIncludePath() {
 		return $this->_includePath;
 	}
 
@@ -87,8 +83,7 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 *
 	 * @param string $fileExtension
 	 */
-	public function setFileExtension($fileExtension)
-	{
+	public function setFileExtension($fileExtension) {
 		$this->_fileExtension = $fileExtension;
 	}
 
@@ -97,24 +92,21 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 *
 	 * @return string $fileExtension
 	 */
-	public function getFileExtension()
-	{
+	public function getFileExtension() {
 		return $this->_fileExtension;
 	}
 
 	/**
 	 * Installs this class loader on the SPL autoload stack.
 	 */
-	public function register()
-	{
+	public function register() {
 		spl_autoload_register(array($this, 'loadClass'));
 	}
 
 	/**
 	 * Uninstalls this class loader from the SPL autoloader stack.
 	 */
-	public function unregister()
-	{
+	public function unregister() {
 		spl_autoload_unregister(array($this, 'loadClass'));
 	}
 
@@ -124,13 +116,13 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 * @param string $className The name of the class to load.
 	 * @return void
 	 */
-	public function loadClass($className)
-	{
+	public function loadClass($className) {
 		$filename = $this->_includePath . '/' . implode('/', explode('\\', trim($className, '\\'))) . $this->_fileExtension;
-		if (file_exists($filename) === FALSE) {
+		if (file_exists($filename) === FALSE && class_exists($className) === FALSE) {
 			throw new \Exception('Class does not exist: ' . $className);
+		} elseif (file_exists($filename)) {
+			require_once $filename;
 		}
-		require_once $filename;
 	}
 
 	/**
@@ -145,14 +137,23 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 * @param string $className
 	 * @return object
 	 */
-	public function create($className)
-	{
+	public function create($className) {
 		$arguments = func_get_args();
 		$className = array_shift($arguments);
 
 		$this->loadClass($className);
+		$classInterfaces = class_implements($className);
+		if (in_array('TYPO3\\Fluid\\Object\\SingletonInterface', $classInterfaces)) {
+			if (isset($this->_singletons[$className])) {
+				return $this->_singletons[$className];
+			}
+		}
+
 		$reflectedClass = new \ReflectionClass($className);
 		$instance = $reflectedClass->newInstanceArgs($arguments);
+		if (in_array('TYPO3\\Fluid\\Object\\SingletonInterface', $classInterfaces)) {
+			$this->_singletons[$className] = $instance;
+		}
 
 		$classReflection = new \ReflectionClass($className);
 		$methods = $classReflection->getMethods(\ReflectionMethod::IS_PUBLIC ^ \ReflectionMethod::IS_STATIC);
@@ -193,6 +194,7 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 			}
 		}
 
+
 		return $instance;
 	}
 
@@ -222,6 +224,5 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 		$this->loadClass($objectName);
 		return class_exists($objectName);
 	}
-
 
 }
