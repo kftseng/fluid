@@ -21,10 +21,10 @@ Working:
 - Basic template rendering
 - Layout and partial usage
 - Basic variable usage
+- Fluid Template Caching as PHP
 
 Not working:
 
-- Fluid Template Caching as PHP
 - Widgets, AJAX and standard
 - ControllerContexts (need to be made more generic and not depending on TS)
 - ConfigurationManager which means {settings} do not yet work and there are no ways to override Widget templates
