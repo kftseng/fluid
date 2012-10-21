@@ -26,7 +26,7 @@ namespace TYPO3\Fluid\Reflection;
 /**
  * A little parser which creates tag objects from doc comments
  *
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Reflection
  * @version $Id$
  */

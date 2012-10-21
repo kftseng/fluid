@@ -26,7 +26,7 @@ namespace TYPO3\Fluid\Reflection;
 /**
  * A generic Reflection Exception
  *
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Reflection
  * @version $Id$
  */

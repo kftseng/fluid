@@ -24,7 +24,7 @@ namespace TYPO3\Fluid\Configuration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 /**
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Configuration
  * @version $ID:$
  */
@@ -38,7 +38,7 @@ interface ConfigurationManagerInterface extends \TYPO3\Fluid\Object\SingletonInt
 	 * Returns the specified configuration.
 	 * The actual configuration will be merged from different sources in a defined order.
 	 *
-	 * Note that this is a low level method and only makes sense to be used by Extbase internally.
+	 * Note that this is a low level method and only makes sense to be used by Fluid internally.
 	 *
 	 * @param string $configurationType The kind of configuration to fetch - must be one of the CONFIGURATION_TYPE_* constants
 	 * @param string $extensionName if specified, the configuration for the given extension will be returned.
@@ -49,7 +49,7 @@ interface ConfigurationManagerInterface extends \TYPO3\Fluid\Object\SingletonInt
 
 	/**
 	 * Sets the specified raw configuration coming from the outside.
-	 * Note that this is a low level method and only makes sense to be used by Extbase internally.
+	 * Note that this is a low level method and only makes sense to be used by Fluid internally.
 	 *
 	 * @param array $configuration The new configuration
 	 * @return void
@@ -60,7 +60,7 @@ interface ConfigurationManagerInterface extends \TYPO3\Fluid\Object\SingletonInt
 	 * Returns TRUE if a certain feature, identified by $featureName
 	 * should be activated, FALSE for backwards-compatible behavior.
 	 *
-	 * This is an INTERNAL API used throughout Extbase and Fluid for providing backwards-compatibility.
+	 * This is an INTERNAL API used throughout Fluid for providing backwards-compatibility.
 	 * Do not use it in your custom code!
 	 *
 	 * @param string $featureName

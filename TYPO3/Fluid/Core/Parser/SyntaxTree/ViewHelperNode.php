@@ -40,7 +40,7 @@ class ViewHelperNode extends \TYPO3\Fluid\Core\Parser\SyntaxTree\AbstractNode {
 	 * A mapping RenderingContext -> ViewHelper to only re-initialize ViewHelpers
 	 * when a context change occurs.
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage
+	 * @var SplObjectStorage
 	 */
 	protected $viewHelpersByContext = NULL;
 

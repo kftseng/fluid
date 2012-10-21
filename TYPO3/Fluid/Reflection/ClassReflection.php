@@ -26,7 +26,7 @@ namespace TYPO3\Fluid\Reflection;
 /**
  * Extended version of the ReflectionClass
  *
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Reflection
  * @version $Id$
  */
@@ -38,9 +38,9 @@ class ClassReflection extends \ReflectionClass {
 	protected $docCommentParser;
 
 	/**
-	 * The constructor - initializes the class Tx_Extbase_Reflection_reflector
+	 * The constructor - initializes the class Tx_Fluid_Reflection_reflector
 	 *
-	 * @param string $className: Name of the class Tx_Extbase_Reflection_to reflect
+	 * @param string $className: Name of the class Tx_Fluid_Reflection_to reflect
 	 */
 	public function __construct($className) {
 		parent::__construct($className);
@@ -48,7 +48,7 @@ class ClassReflection extends \ReflectionClass {
 
 	/**
 	 * Replacement for the original getMethods() method which makes sure
-	 * that Tx_Extbase_Reflection_MethodReflection objects are returned instead of the
+	 * that Tx_Fluid_Reflection_MethodReflection objects are returned instead of the
 	 * orginal ReflectionMethod instances.
 	 *
 	 * @param integer|NULL $filter A filter mask
@@ -65,7 +65,7 @@ class ClassReflection extends \ReflectionClass {
 
 	/**
 	 * Replacement for the original getMethod() method which makes sure
-	 * that Tx_Extbase_Reflection_MethodReflection objects are returned instead of the
+	 * that Tx_Fluid_Reflection_MethodReflection objects are returned instead of the
 	 * orginal ReflectionMethod instances.
 	 *
 	 * @param string $name
@@ -81,7 +81,7 @@ class ClassReflection extends \ReflectionClass {
 
 	/**
 	 * Replacement for the original getConstructor() method which makes sure
-	 * that Tx_Extbase_Reflection_MethodReflection objects are returned instead of the
+	 * that Tx_Fluid_Reflection_MethodReflection objects are returned instead of the
 	 * orginal ReflectionMethod instances.
 	 *
 	 * @return \TYPO3\Fluid\Reflection\MethodReflection Method reflection object of the constructor method
@@ -96,11 +96,11 @@ class ClassReflection extends \ReflectionClass {
 
 	/**
 	 * Replacement for the original getProperties() method which makes sure
-	 * that Tx_Extbase_Reflection_PropertyReflection objects are returned instead of the
+	 * that Tx_Fluid_Reflection_PropertyReflection objects are returned instead of the
 	 * orginal ReflectionProperty instances.
 	 *
 	 * @param integer|NULL $filter A filter mask
-	 * @return array of Tx_Extbase_Reflection_PropertyReflection Property reflection objects of the properties in this class
+	 * @return array of Tx_Fluid_Reflection_PropertyReflection Property reflection objects of the properties in this class
 	 */
 	public function getProperties($filter = NULL) {
 		$extendedProperties = array();
@@ -113,7 +113,7 @@ class ClassReflection extends \ReflectionClass {
 
 	/**
 	 * Replacement for the original getProperty() method which makes sure
-	 * that a Tx_Extbase_Reflection_PropertyReflection object is returned instead of the
+	 * that a Tx_Fluid_Reflection_PropertyReflection object is returned instead of the
 	 * orginal ReflectionProperty instance.
 	 *
 	 * @param string $name: Name of the property
@@ -125,10 +125,10 @@ class ClassReflection extends \ReflectionClass {
 
 	/**
 	 * Replacement for the original getInterfaces() method which makes sure
-	 * that Tx_Extbase_Reflection_ClassReflection objects are returned instead of the
+	 * that Tx_Fluid_Reflection_ClassReflection objects are returned instead of the
 	 * orginal ReflectionClass instances.
 	 *
-	 * @return array of Tx_Extbase_Reflection_ClassReflection Class reflection objects of the properties in this class
+	 * @return array of Tx_Fluid_Reflection_ClassReflection Class reflection objects of the properties in this class
 	 */
 	public function getInterfaces() {
 		$extendedInterfaces = array();
@@ -141,7 +141,7 @@ class ClassReflection extends \ReflectionClass {
 
 	/**
 	 * Replacement for the original getParentClass() method which makes sure
-	 * that a Tx_Extbase_Reflection_ClassReflection object is returned instead of the
+	 * that a Tx_Fluid_Reflection_ClassReflection object is returned instead of the
 	 * orginal ReflectionClass instance.
 	 *
 	 * @return \TYPO3\Fluid\Reflection\ClassReflection Reflection of the parent class - if any

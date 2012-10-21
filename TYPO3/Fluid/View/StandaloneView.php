@@ -22,7 +22,6 @@ namespace TYPO3\Fluid\View;
  *                                                                        */
 /**
  * A standalone template view.
- * Should be used as view if you want to use Fluid without Extbase extensions
  *
  * @api
  */

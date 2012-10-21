@@ -63,12 +63,12 @@ class AutocompleteViewHelper extends \TYPO3\Fluid\Core\Widget\AbstractWidgetView
 	}
 
 	/**
-	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $objects
+	 * @param mixed $objects
 	 * @param string $for
 	 * @param string $searchProperty
 	 * @return string
 	 */
-	public function render(\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $objects, $for, $searchProperty) {
+	public function render($objects, $for, $searchProperty) {
 		return $this->initiateSubRequest();
 	}
 

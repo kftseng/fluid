@@ -29,7 +29,7 @@ namespace TYPO3\Fluid\Configuration;
  *
  * Use the shutdown() method to drop the concrete implementation.
  *
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Configuration
  * @version $ID:$
  */
@@ -63,7 +63,7 @@ class ConfigurationManager implements \TYPO3\Fluid\Configuration\ConfigurationMa
 
 	/**
 	 * Sets the specified raw configuration coming from the outside.
-	 * Note that this is a low level method and only makes sense to be used by Extbase internally.
+	 * Note that this is a low level method and only makes sense to be used by Fluid internally.
 	 *
 	 * @param array $configuration The new configuration
 	 * @return void
@@ -76,7 +76,7 @@ class ConfigurationManager implements \TYPO3\Fluid\Configuration\ConfigurationMa
 	 * Returns the specified configuration.
 	 * The actual configuration will be merged from different sources in a defined order.
 	 *
-	 * Note that this is a low level method and only makes sense to be used by Extbase internally.
+	 * Note that this is a low level method and only makes sense to be used by Fluid internally.
 	 *
 	 * @param string $configurationType The kind of configuration to fetch - must be one of the CONFIGURATION_TYPE_* constants
 	 * @param string $extensionName if specified, the configuration for the given extension will be returned.
@@ -94,7 +94,7 @@ class ConfigurationManager implements \TYPO3\Fluid\Configuration\ConfigurationMa
 		case self::CONFIGURATION_TYPE_FULL_TYPOSCRIPT:
 			return $this->concreteConfigurationManager->getTypoScriptSetup();
 		default:
-			throw new \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException('Invalid configuration type "' . $configurationType . '"', 1206031879);
+			throw new \TYPO3\Fluid\Exception('Invalid configuration type "' . $configurationType . '"', 1206031879);
 		}
 	}
 
@@ -102,7 +102,7 @@ class ConfigurationManager implements \TYPO3\Fluid\Configuration\ConfigurationMa
 	 * Returns TRUE if a certain feature, identified by $featureName
 	 * should be activated, FALSE for backwards-compatible behavior.
 	 *
-	 * This is an INTERNAL API used throughout Extbase and Fluid for providing backwards-compatibility.
+	 * This is an INTERNAL API used throughout Fluid for providing backwards-compatibility.
 	 * Do not use it in your custom code!
 	 *
 	 * @param string $featureName

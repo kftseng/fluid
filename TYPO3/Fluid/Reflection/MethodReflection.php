@@ -26,7 +26,7 @@ namespace TYPO3\Fluid\Reflection;
 /**
  * Extended version of the ReflectionMethod
  *
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Reflection
  * @version $Id$
  */
@@ -58,10 +58,10 @@ class MethodReflection extends \ReflectionMethod {
 
 	/**
 	 * Replacement for the original getParameters() method which makes sure
-	 * that Tx_Extbase_Reflection_ParameterReflection objects are returned instead of the
+	 * that Tx_Fluid_Reflection_ParameterReflection objects are returned instead of the
 	 * orginal ReflectionParameter instances.
 	 *
-	 * @return array of Tx_Extbase_Reflection_ParameterReflection Parameter reflection objects of the parameters of this method
+	 * @return array of Tx_Fluid_Reflection_ParameterReflection Parameter reflection objects of the parameters of this method
 	 */
 	public function getParameters() {
 		$extendedParameters = array();

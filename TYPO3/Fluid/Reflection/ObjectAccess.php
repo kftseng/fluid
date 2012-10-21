@@ -31,7 +31,7 @@ namespace TYPO3\Fluid\Reflection;
  * - if public property exists, return/set the value of it.
  * - else, throw exception
  *
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Reflection
  * @version $Id$
  */

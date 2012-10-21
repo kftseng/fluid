@@ -26,7 +26,7 @@ namespace TYPO3\Fluid\Reflection;
 /**
  * Extended version of the ReflectionParameter
  *
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Reflection
  * @version $Id$
  */

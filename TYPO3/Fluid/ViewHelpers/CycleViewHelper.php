@@ -49,7 +49,7 @@ class CycleViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
 	 * the values to be iterated through
 	 *
-	 * @var array|Tx_Extbase_Persistence_ObjectStorage
+	 * @var array|Iterator
 	 */
 	protected $values = NULL;
 
@@ -61,7 +61,7 @@ class CycleViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	protected $currentCycleIndex = NULL;
 
 	/**
-	 * @param array $values The array or object implementing ArrayAccess (for example Tx_Extbase_Persistence_ObjectStorage) to iterated over
+	 * @param array $values The array or object implementing Iterator|ArrayAccess to iterated over
 	 * @param string $as The name of the iteration variable
 	 * @return string Rendered result
 	 * @api
@@ -87,7 +87,7 @@ class CycleViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	/**
 	 * Sets this->values to the current values argument and resets $this->currentCycleIndex.
 	 *
-	 * @param array $values The array or Tx_Extbase_Persistence_ObjectStorage to be stored in $this->values
+	 * @param array $values The array or ArrayAccess|Iterator to be stored in $this->values
 	 * @return void
 	 */
 	protected function initializeValues($values) {

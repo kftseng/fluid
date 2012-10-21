@@ -26,7 +26,7 @@ namespace TYPO3\Fluid\Configuration;
 /**
  * Abstract base class for a general purpose configuration manager
  *
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Configuration
  * @version $ID:$
  */
@@ -85,7 +85,7 @@ abstract class AbstractConfigurationManager implements \TYPO3\Fluid\Object\Singl
 
 	/**
 	 * Sets the specified raw configuration coming from the outside.
-	 * Note that this is a low level method and only makes sense to be used by Extbase internally.
+	 * Note that this is a low level method and only makes sense to be used by Fluid internally.
 	 *
 	 * @param array $configuration The new configuration
 	 * @return void
@@ -99,14 +99,14 @@ abstract class AbstractConfigurationManager implements \TYPO3\Fluid\Object\Singl
 	}
 
 	/**
-	 * Loads the Extbase Framework configuration.
+	 * Loads the Fluid Framework configuration.
 	 *
-	 * The Extbase framework configuration HAS TO be retrieved using this method, as they are come from different places than the normal settings.
-	 * Framework configuration is, in contrast to normal settings, needed for the Extbase framework to operate correctly.
+	 * The Fluid framework configuration HAS TO be retrieved using this method, as they are come from different places than the normal settings.
+	 * Framework configuration is, in contrast to normal settings, needed for the Fluid framework to operate correctly.
 	 *
 	 * @param string $extensionName if specified, the configuration for the given extension will be returned (plugin.tx_extensionname)
 	 * @param string $pluginName if specified, the configuration for the given plugin will be returned (plugin.tx_extensionname_pluginname)
-	 * @return array the Extbase framework configuration
+	 * @return array the Fluid framework configuration
 	 */
 	public function getConfiguration($extensionName = NULL, $pluginName = NULL) {
 		return array();

@@ -28,7 +28,7 @@ namespace TYPO3\Fluid\Configuration;
  *
  * Should NOT be singleton, as a new configuration manager is needed per plugin.
  *
- * @package Extbase
+ * @package TYPO3\Fluid
  * @subpackage Configuration
  * @version $ID:$
  */

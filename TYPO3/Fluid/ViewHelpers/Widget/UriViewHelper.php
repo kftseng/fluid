@@ -21,7 +21,7 @@ namespace TYPO3\Fluid\ViewHelpers\Widget;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 /**
- * A view helper for creating URIs to extbase actions within widgets.
+ * A view helper for creating URIs to widget actions within widgets.
  *
  * = Examples =
  *

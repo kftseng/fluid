@@ -266,8 +266,9 @@ abstract class AbstractViewHelper {
 	 */
 	public function renderChildren() {
 		if ($this->renderChildrenClosure !== NULL) {
+			/** @var Closure $closure */
 			$closure = $this->renderChildrenClosure;
-			return $closure();
+			return call_user_func_array($closure);
 		}
 		return $this->viewHelperNode->evaluateChildNodes($this->renderingContext);
 	}
@@ -409,12 +410,12 @@ abstract class AbstractViewHelper {
 	 * @return string rendered string, view helper specific
 	 * @api
 	 */
-	//abstract public function render();
+	abstract public function render();
+
 	/**
 	 * Get the rendering context interface.
 	 *
 	 * @return \TYPO3\Fluid\Core\Rendering\RenderingContextInterface
-	 * @deprecated since Extbase 1.4.0, will be removed in Extbase 1.6.0. use $this->renderingContext instead
 	 */
 	public function getRenderingContext() {
 		return $this->renderingContext;
