@@ -266,9 +266,8 @@ abstract class AbstractViewHelper {
 	 */
 	public function renderChildren() {
 		if ($this->renderChildrenClosure !== NULL) {
-			/** @var Closure $closure */
 			$closure = $this->renderChildrenClosure;
-			return call_user_func_array($closure);
+			return $closure();
 		}
 		return $this->viewHelperNode->evaluateChildNodes($this->renderingContext);
 	}
