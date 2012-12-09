@@ -409,7 +409,7 @@ abstract class AbstractViewHelper {
 	 * @return string rendered string, view helper specific
 	 * @api
 	 */
-	abstract public function render();
+	//abstract public function render();
 
 	/**
 	 * Get the rendering context interface.
