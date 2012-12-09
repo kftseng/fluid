@@ -49,7 +49,7 @@ class FluidEngine extends ContainerAware implements EngineInterface, ContainerAw
 	 * @param TemplateNameParserInterface $parser  A TemplateNameParser instance
 	 * @param LoaderInterface             $loader  A loader instance
 	 */
-    public function __construct(FluidEnvironment $environment, TemplateNameParser $parser, LoaderInterface $loader) {
+	public function __construct(FluidEnvironment $environment, TemplateNameParser $parser, LoaderInterface $loader) {
 		$this->environment = $environment;
 		$this->parser = $parser;
 		$this->loader = $loader;
