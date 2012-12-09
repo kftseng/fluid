@@ -14,6 +14,7 @@
 		<service id="fluid" class="%fluid.class%">
 			<argument type="service" id="fluid.loader" />
 			<argument>%fluid%</argument>
+			<argument type="service" id="kernel" />
 		</service>
 		<service id="fluid.loader" alias="fluid.loader.filesystem" />
 		<service id="fluid.loader.filesystem" class="%fluid.loader.class%" public="false">

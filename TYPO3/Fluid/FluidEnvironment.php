@@ -23,6 +23,7 @@ use Symfony\Component\Templating\Storage\StringStorage;
 use Symfony\Component\Templating\Helper\HelperInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * FluidEnvironment: Wrapper class for TYPO3\Fluid's options and loader
@@ -36,6 +37,7 @@ class FluidEnvironment implements ContainerAwareInterface {
 	protected $options = array();
 	protected $loader;
 	protected $container;
+	protected $kernel;
 
 	/**
 	 * @var \Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables
@@ -45,9 +47,10 @@ class FluidEnvironment implements ContainerAwareInterface {
 	/**
 	 * @param LoaderInterface $loader
 	 */
-	public function __construct(LoaderInterface $loader = NULL, $options = array()) {
+	public function __construct(LoaderInterface $loader = NULL, $options = array(), KernelInterface $kernel) {
 		$this->loader = $loader;
 		$this->options = $options;
+		$this->kernel = $kernel;
 		$this->objectManager = new \TYPO3\Fluid\Object\ObjectManager();
 	}
 
@@ -57,6 +60,36 @@ class FluidEnvironment implements ContainerAwareInterface {
 	 */
 	public function setContainer(ContainerInterface $container = NULL) {
 		$this->container = $container;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getOptions() {
+		return $this->options;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getTranslatedTemplatePaths() {
+		return $this->translateBundlePathOrPaths($this->options['view']);
+	}
+
+	/**
+	 * @param mixed $pathOrPaths
+	 * @return mixed
+	 */
+	public function translateBundlePathOrPaths($pathOrPaths) {
+		if (is_array($pathOrPaths)) {
+			return array_map(array($this, 'translateBundlePathOrPaths'), $pathOrPaths);
+		}
+		if (strpos($pathOrPaths, '@') === 0) {
+			$bundleName = substr($pathOrPaths, 1, strpos($pathOrPaths, '/') - 1);
+			$bundlePath = $this->kernel->getBundle($bundleName, TRUE)->getPath();
+			return str_replace('@' . $bundleName, $bundlePath, $pathOrPaths);
+		}
+		return $pathOrPaths;
 	}
 
 	/**
