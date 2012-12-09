@@ -82,6 +82,9 @@ class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 */
 	public function render($section = NULL, $partial = NULL, $arguments = array(), $optional = FALSE) {
 		$arguments = $this->loadSettingsIntoArguments($arguments);
+		if (isset($arguments['tagContent']) === FALSE) {
+			$arguments['tagContent'] = $this->renderChildren();
+		}
 		if ($partial !== NULL) {
 			return $this->viewHelperVariableContainer->getView()->renderPartial($partial, $section, $arguments);
 		} elseif ($section !== NULL) {
