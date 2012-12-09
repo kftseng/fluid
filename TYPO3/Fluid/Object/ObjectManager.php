@@ -26,7 +26,6 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	private $_includePath;
 	private $_namespaceSeparator = '\\';
 	private $_implementations = array(
-		'TYPO3\\Fluid\\Object\\ObjectManagerInterface' => 'TYPO3\\Fluid\\Object\\ObjectManager',
 		'TYPO3\\Fluid\\Object\\ObjectManagerInterface' => 'TYPO3\\Fluid\\Object\\ObjectManager'
 	);
 	private $_singletons = array();
@@ -37,9 +36,9 @@ class ObjectManager implements \TYPO3\Fluid\Object\ObjectManagerInterface
 	 *
 	 * @param string $ns The namespace to use.
 	 */
-	public function __construct($ns = null, $includePath = null) {
+	public function __construct($ns = NULL, $includePath = NULL) {
 		$this->_namespace = $ns !== NULL ? $ns : 'TYPO3';
-		$this->_includePath = $includePath !== NULL ? $includePath : CLASS_BASE_DIR;
+		$this->_includePath = $includePath;
 	}
 
 	/**
