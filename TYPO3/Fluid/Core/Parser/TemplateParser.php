@@ -15,7 +15,7 @@ namespace TYPO3\Fluid\Core\Parser;
  */
 class TemplateParser {
 
-	static public $SCAN_PATTERN_NAMESPACEDECLARATION = '/(?<!\\\\){namespace\\s*([a-zA-Z]+[a-zA-Z0-9]*)\\s*=\\s*((?:[A-Za-z0-9\.]+|Tx)(?:LEGACY_NAMESPACE_SEPARATOR\\w+|FLUID_NAMESPACE_SEPARATOR\\w+)+)\\s*}/m';
+	static public $SCAN_PATTERN_NAMESPACEDECLARATION = '/(?<!\\\\){namespace\\s*([a-zA-Z]+[a-zA-Z0-9]*)\\s*=\\s*((?:[A-Za-z0-9\.]+|Tx)(?:FLUID_NAMESPACE_SEPARATOR\\w+)+)\\s*}/m';
 
 	/**
 	 * This regular expression splits the input string at all dynamic tags, AND
@@ -251,7 +251,6 @@ class TemplateParser {
 	 * inserting the correct namespace separator.
 	 */
 	public function __construct() {
-		self::$SCAN_PATTERN_NAMESPACEDECLARATION = str_replace('LEGACY_NAMESPACE_SEPARATOR', preg_quote(\TYPO3\Fluid\Fluid::LEGACY_NAMESPACE_SEPARATOR), self::$SCAN_PATTERN_NAMESPACEDECLARATION);
 		self::$SCAN_PATTERN_NAMESPACEDECLARATION = str_replace('FLUID_NAMESPACE_SEPARATOR', preg_quote(\TYPO3\Fluid\Fluid::NAMESPACE_SEPARATOR), self::$SCAN_PATTERN_NAMESPACEDECLARATION);
 	}
 
