@@ -48,13 +48,13 @@ fluid:
         layoutRootPath: @AcmeDemoBundle/Resources/Layouts/
 ```
 
-	### Danger note
-
-	The paths are not yet supported and still use the Symfony2-native TemplateReference which means that until further notice,
-	your template files must be located in @MyBundleName/Resources/views/ - once a custom TemplateRefence has been implemented
-	which also supports the additional paths and lookup logic of Fluid, this warning will be removed and the paths will then
-	work as expected. That will, however, constitute a __breaking change__ in that you will need to either adapt your
-	templateRootPath or simply rename the `views` Resource folder into `Templates` to follow the usual Fluid naming convention.
+> ### Danger note
+>
+> The paths are not yet supported and still use the Symfony2-native TemplateReference which means that until further notice,
+> your template files must be located in @MyBundleName/Resources/views/ - once a custom TemplateRefence has been implemented
+> which also supports the additional paths and lookup logic of Fluid, this warning will be removed and the paths will then
+> work as expected. That will, however, constitute a __breaking change__ in that you will need to either adapt your
+> templateRootPath or simply rename the `views` Resource folder into `Templates` to follow the usual Fluid naming convention.
 
 The `fluid` configuration scope can be overridden by your Bundle. Note that the Fluid templating engine has additional paths
 compared to the Twig engine; rather than _extending_ a template from a view, Fluid works by rendering an entire template as
