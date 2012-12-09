@@ -98,7 +98,7 @@ class StandaloneView extends \TYPO3\Fluid\View\AbstractTemplateView {
 	 * @api
 	 */
 	public function setFormat($format) {
-		$this->getRequest()->setFormat($format);
+		$this->format = $format;
 	}
 
 	/**
