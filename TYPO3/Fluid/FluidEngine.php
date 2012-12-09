@@ -66,12 +66,16 @@ class FluidEngine extends ContainerAware implements EngineInterface, ContainerAw
 	 */
 	public function render($name, array $parameters = array()) {
 		$templateReference = $this->parser->parse($name);
-		$storage = $this->loader->load($templateReference);
-		/** @var $template StandaloneView */
-		$template = $this->environment->getTemplateView();
-		$template->setTemplateSource($storage->getContent());
-		$template->assignMultiple($parameters);
-		return $template->render();
+		/** @var $view StandaloneView */
+		$view = $this->environment->getTemplateView();
+		$view->assignMultiple($parameters);
+		$view->setFormat('html.fluid');
+		$this->addTemplateSource($view, $templateReference);
+		$this->addTemplateViewPaths($view);
+
+		#var_dump($translatedPaths);
+		#var_dump($this->environment->)
+		return $view->render();
 	}
 
 	/**
@@ -111,6 +115,30 @@ class FluidEngine extends ContainerAware implements EngineInterface, ContainerAw
 		}
 		$response->setContent($this->render($view, $parameters));
 		return $response;
+	}
+
+	/**
+	 * @param \TYPO3\Fluid\View\StandaloneView $view
+	 * @param \Symfony\Bundle\FrameworkBundle\Templating\TemplateReference $templateReference
+	 * @return void
+	 */
+	protected function addTemplateSource(StandaloneView &$view, TemplateReference $templateReference) {
+		$translatedPaths = $this->environment->getTranslatedTemplatePaths();
+		$templateRootPath = $translatedPaths['templateRootPath'];
+		list ($bundleName, $controllerName, $file) = explode(':', $templateReference->getLogicalName());
+		list ($action, $format, $engine) = explode('.', $file);
+		$templatePathAndFilename = $templateRootPath . $controllerName . '/' . $action . '.' . $format . '.' . $engine;
+		$view->setTemplatePathAndFilename($templatePathAndFilename);
+	}
+
+	/**
+	 * @param \TYPO3\Fluid\View\StandaloneView $view
+	 * @return void
+	 */
+	protected function addTemplateViewPaths(StandaloneView &$view) {
+		$translatedPaths = $this->environment->getTranslatedTemplatePaths();
+		$view->setPartialRootPath($translatedPaths['partialRootPath']);
+		$view->setLayoutRootPath($translatedPaths['layoutRootPath']);
 	}
 
 }
