@@ -25,7 +25,7 @@ class TemplateCompiler implements \TYPO3\Fluid\Object\SingletonInterface {
 	/**
 	 * @var string
 	 */
-	protected $templateCacheDir = CLASS_CACHE_DIR;
+	protected $templateCacheDir = NULL;
 
 	/**
 	 * @var integer
