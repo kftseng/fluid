@@ -35,7 +35,7 @@ namespace TYPO3\Fluid\ViewHelpers;
 class DebugViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * A wrapper for Tx_Extbase_Utility_Debugger::var_dump().
+	 * A wrapper for var_dump() or Doctrine's Dump Utility.
 	 *
 	 * @param string $title optional custom title for the debug output
 	 * @param integer $maxDepth Sets the max recursion depth of the dump (defaults to 8). De- or increase the number according to your needs and memory limit.
@@ -47,10 +47,10 @@ class DebugViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 	 * @return string
 	 */
 	public function render($title = NULL, $maxDepth = 8, $plainText = FALSE, $ansiColors = FALSE, $inline = FALSE, $blacklistedClassNames = NULL, $blacklistedPropertyNames = NULL) {
-		return \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->renderChildren(), $title, $maxDepth, (bool) $plainText, (bool) $ansiColors, (bool) $inline, $blacklistedClassNames, $blacklistedPropertyNames);
+		if (class_exists('Doctrine\\Common\\Util\\Debug')) {
+			return \Doctrine\Common\Util\Debug::dump($this->renderChildren(), $maxDepth, !$plainText);
+		}
+		return var_export($this->renderChildren(), TRUE);
 	}
 
 }
-
-
-?>
